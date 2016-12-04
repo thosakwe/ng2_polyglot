@@ -1,0 +1,15 @@
+author: "Tobe O <thosakwe@gmail.com>"
+description: "i18n DSL and compiler for Angular2 Dart."
+homepage: "https://github.com/thosakwe/ng2_polyglot.git"
+name: "polyglot"
+version: "1.0.0-dev"
+dependencies: 
+  args: "^0.13.7"
+  code_builder: "1.0.0-alpha+7"
+  string_scanner: "^1.0.1"
+dev_dependencies: 
+  test: "^0.12.17"
+environment: 
+  sdk: ">=1.19.0"
+executables: 
+  polyglot: "polyglot"

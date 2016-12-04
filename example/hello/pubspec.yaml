@@ -1,0 +1,14 @@
+name: "hello"
+dependencies: 
+  angular2: "^2.2.0"
+  polyglot: 
+    path: "../../"
+dev_dependencies: 
+  browser: "^0.10.0+2"
+  dart_to_js_script_rewriter: "^1.0.2"
+scripts: 
+  build: "polyglot -o web/pipes/polyglot.dart hello.i18n"
+  get: "scripts build"
+  upgrade: "scripts build"
+transformers: 
+  - "dart_to_js_script_rewriter"

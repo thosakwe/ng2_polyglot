@@ -20,6 +20,7 @@ class Parser extends BaseParser {
   }
 
   TopLevelDeclaration topLevelDeclaration() {
+    print('ab');
     LanguagesContext lang = languages();
 
     if (lang != null) return lang;

@@ -12,5 +12,9 @@ export 'syntax_error.dart';
 export 'token.dart';
 export 'token_type.dart';
 
-CompilationUnitContext parse(String text) =>
-    new Parser(scan(text)).compilationUnit();
+CompilationUnitContext parse(String text) {
+  final tokens = scan(text);
+  final parser = new Parser(tokens);
+  print('${tokens.length} token(s)');
+  return parser.compilationUnit();
+}

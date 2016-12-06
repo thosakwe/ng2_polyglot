@@ -15,7 +15,6 @@ main(List<String> args) async {
       }
 
       final file = new File(result.rest.first);
-      print('a');
       final ast = parse(await file.readAsString());
       print('ast: $ast');
       print(ast.toSource());

@@ -32,10 +32,12 @@ List<Token> scan(String text) {
     final List<Token> potential = [];
 
     if (scanner.matches('\n') || scanner.matches('\r\n')) {
+      scanner.readChar();
       line++;
       index = -1;
       continue;
     } else if (scanner.matches(_WS)) {
+      scanner.readChar();
       index += scanner.lastMatch[0].length;
       continue;
     }
@@ -68,6 +70,8 @@ List<Token> scan(String text) {
       token.location = new Location(line, index);
       line += '\n'.allMatches(token.text).length;
       index += token.text.length;
+    } else {
+      scanner.readChar();
     }
   }
 

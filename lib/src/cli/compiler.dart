@@ -30,6 +30,7 @@ class PolyglotCompiler {
   }
 
   StatementBuilder buildSwitch(CompilationUnitContext ctx) {
-    final builder = new StatementBuilder().
+    final builder = null; //new StatementBuilder().
+    return builder;
   }
 }

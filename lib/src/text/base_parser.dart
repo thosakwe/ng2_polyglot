@@ -29,11 +29,15 @@ class BaseParser {
       return false;
     }
 
+    print('Is next $type?');
+
     if (peek().type == type) {
+      print('Yes.');
       read();
       return true;
     }
 
+    print('No.');
     return false;
   }
 
@@ -41,6 +45,10 @@ class BaseParser {
 
   Token peekBack([int n]) => peek((n ?? -1) * -1);
 
-  Token read([int n]) => tokens[_index += n ?? 1];
+  Token read([int n]) {
+    final tok = tokens[_index += n ?? 1];
+    print('Read token: "${tok.text}" -> ${tok.type}');
+    return tok;
+  }
 
 }

@@ -13,6 +13,15 @@ class PolyglotPipe implements PipeTransform {
       if (locale == 'es') {
         return '¡Hola, mundo!';
       }
+      if (locale == 'fr') {
+        return 'Bonjour le monde!';
+      }
+      if (locale == 'jp') {
+        return 'こんにちは世界！';
+      }
+      if (locale == 'eo') {
+        return 'Saluton mondo!';
+      }
     }
     return 'Unrecognized key: "$key"';
   }

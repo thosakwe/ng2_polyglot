@@ -1,6 +1,9 @@
-languages [en, es];
+languages [en, es, fr, jp, eo];
  
 "hello" {
     en: "Hello, world!",
-    es: "¡Hola, mundo!"
+    es: "¡Hola, mundo!",
+    fr: "Bonjour le monde!",
+    jp: "こんにちは世界！",
+    eo: "Saluton mondo!"
 }

@@ -1,1 +1,8 @@
-<h1>{{ 'hello' | polyglot }}</h1>
+<h1>{{ 'hello' | polyglot:language }}</h1>
+<select [(ngModel)]="locale">
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+    <option value="jp">日本語</option>
+    <option value="eo">Esperanto</option>
+</select>

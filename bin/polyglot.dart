@@ -16,8 +16,6 @@ main(List<String> args) async {
 
       final file = new File(result.rest.first);
       final ast = parse(await file.readAsString());
-      print('ast: $ast');
-      print(ast.toSource());
       final compiler = new PolyglotCompiler();
       final output = new File(result['out']);
       await output.writeAsString(compiler.compile(ast));

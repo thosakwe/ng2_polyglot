@@ -5,6 +5,7 @@ name: "polyglot"
 version: "1.0.0-dev"
 dependencies: 
   args: "^0.13.7"
+  barback: "^0.15.2+9"
   code_builder: "1.0.0-alpha+7"
   string_scanner: "^1.0.1"
 dev_dependencies: 

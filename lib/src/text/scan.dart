@@ -9,6 +9,7 @@ final RegExp _ID = new RegExp(r'[A-Za-z_][A-Za-z0-9_]*');
 
 const Map<String, TokenType> _symbols = const {
   '@': TokenType.ARROBA,
+  ':': TokenType.COLON,
   ',': TokenType.COMMA,
   '{': TokenType.CURLY_L,
   '}': TokenType.CURLY_R,
@@ -21,7 +22,10 @@ const Map<Pattern, TokenType> _keywords = const {
   'languages': TokenType.LANGUAGES
 };
 
-final Map<Pattern, TokenType> _lexRules = {_ID: TokenType.ID};
+final Map<Pattern, TokenType> _lexRules = {
+  _ID: TokenType.ID,
+  _STRING: TokenType.STRING
+};
 
 List<Token> scan(String text) {
   final List<Token> tokens = [];
@@ -30,14 +34,13 @@ List<Token> scan(String text) {
 
   while (!scanner.isDone) {
     final List<Token> potential = [];
+    index++;
 
-    if (scanner.matches('\n') || scanner.matches('\r\n')) {
-      scanner.readChar();
+    if (scanner.scan('\n') || scanner.scan('\r\n')) {
       line++;
       index = -1;
       continue;
-    } else if (scanner.matches(_WS)) {
-      scanner.readChar();
+    } else if (scanner.scan(_WS)) {
       index += scanner.lastMatch[0].length;
       continue;
     }
@@ -70,6 +73,8 @@ List<Token> scan(String text) {
       token.location = new Location(line, index);
       line += '\n'.allMatches(token.text).length;
       index += token.text.length;
+      scanner.position += token.text.length;
+      tokens.add(token);
     } else {
       scanner.readChar();
     }

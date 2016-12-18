@@ -20,7 +20,6 @@ class Parser extends BaseParser {
   }
 
   TopLevelDeclaration topLevelDeclaration() {
-    print('ab');
     LanguagesContext lang = languages();
 
     if (lang != null) return lang;
@@ -49,6 +48,8 @@ class Parser extends BaseParser {
         }
 
         if (next(TokenType.SQUARE_R)) {
+          // Optional semi-colon
+          next(TokenType.SEMI);
           final SQUARE_R = current;
           final ctx = new LanguagesContext(LANGUAGES, SQUARE_L, SQUARE_R);
           return ctx..languages.addAll(ids);

@@ -19,6 +19,16 @@ class DictionaryContext extends Node {
 
   DictionaryContext(this.CURLY_L, this.CURLY_R);
 
+  Map<String, String> toMap() {
+    var map = {};
+
+    keyValuePairs.forEach((pair) {
+      map[pair.key.name] = pair.value.stringValue;
+    });
+
+    return map;
+  }
+
   @override
   String toSource() {
     final buf = new StringBuffer('@languages [');

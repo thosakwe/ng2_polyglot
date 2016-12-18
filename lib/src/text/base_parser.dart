@@ -22,33 +22,32 @@ class BaseParser {
 
   Token backtrack([int n]) => read((n ?? 1) * -1);
 
-  Token get current => eof() ? null : tokens[_index];
+  Token get current => eof() || _index == -1 ? null : tokens[_index];
 
   bool next(TokenType type) {
     if (_index >= tokens.length - 1) {
       return false;
     }
 
-    print('Is next $type?');
+    // print('Current is ${current?.type}. Is next $type?');
 
-    if (peek().type == type) {
-      print('Yes.');
+    if (peek()?.type == type) {
+      // print('Yes.');
       read();
       return true;
     }
 
-    print('No.');
+    // print('No.');
     return false;
   }
 
-  Token peek([int n]) => tokens[_index + n ?? 1];
+  Token peek([int n]) => tokens[_index + (n ?? 1)];
 
   Token peekBack([int n]) => peek((n ?? -1) * -1);
 
   Token read([int n]) {
-    final tok = tokens[_index += n ?? 1];
-    print('Read token: "${tok.text}" -> ${tok.type}');
+    final tok = tokens[_index += (n ?? 1)];
+    // print('Read token: "${tok.text}" -> ${tok.type}');
     return tok;
   }
-
 }

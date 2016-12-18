@@ -7,4 +7,7 @@ class Token {
   final String text;
 
   Token(this.type, this.text, {this.location});
+
+  @override
+  String toString() => '$location: "$text" -> $type';
 }

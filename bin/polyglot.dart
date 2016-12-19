@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:args/args.dart';
-import 'package:polyglot/polyglot.dart';
+import 'package:polyglot/io.dart';
 
 main(List<String> args) async {
   try {
@@ -15,17 +15,19 @@ main(List<String> args) async {
       }
 
       final file = new File(result.rest.first);
-      final ast = parse(await file.readAsString());
+      final preprocessor = new IoPreprocessor(file.parent);
+      var original = parse(await file.readAsString(), filename: file.path);
+      final ast = await preprocessor.processAst(original);
       final compiler = new PolyglotCompiler();
       final output = new File(result['out']);
       await output.writeAsString(compiler.compile(ast));
     }
-  } catch (e, st) {
+  } catch (e) {
     if (e is ArgParserException) {
       print(e.message);
       printUsage();
     } else {
-      stderr..writeln(e)..writeln(st);
+      stderr..writeln(e);
     }
 
     exit(1);

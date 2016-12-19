@@ -15,4 +15,8 @@ class CompilationUnitContext extends Node {
 
     return tokens;
   }
+
+  @override
+  String toSource() =>
+      topLevelDeclarations.map((decl) => decl.toSource()).join();
 }

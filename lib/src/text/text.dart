@@ -12,8 +12,8 @@ export 'syntax_error.dart';
 export 'token.dart';
 export 'token_type.dart';
 
-CompilationUnitContext parse(String text) {
-  final tokens = scan(text);
-  final parser = new Parser(tokens);
+CompilationUnitContext parse(String text, {String filename}) {
+  final tokens = scan(text, filename: filename);
+  final parser = new Parser(filename, tokens);
   return parser.compilationUnit();
 }

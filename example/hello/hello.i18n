@@ -1,4 +1,4 @@
-languages [en, es, fr, jp, eo];
+@languages [en, es, fr, jp, eo];
  
 "hello" {
     en: "Hello, world!",

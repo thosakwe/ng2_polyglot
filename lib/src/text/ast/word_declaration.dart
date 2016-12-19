@@ -11,4 +11,7 @@ class WordDeclaration extends TopLevelDeclaration {
       ..addAll(word.tokens)
       ..addAll(dictionary.tokens);
   }
+
+  @override
+  String toSource() => '${word.STRING.text}${dictionary.toSource()}';
 }

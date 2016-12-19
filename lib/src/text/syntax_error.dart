@@ -4,5 +4,5 @@ class SyntaxError implements Exception {
   SyntaxError(this.cause);
 
   @override
-  String toString() => 'Syntax error: $cause';
+  String toString() => cause;
 }

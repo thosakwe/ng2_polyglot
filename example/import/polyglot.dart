@@ -1,20 +1,3 @@
-# ng2_polyglot
-i18n DSL and compiler for Angular2 Dart.
-
-# Example
-
-```polyglot
-@languages [en, es];
- 
-"hello" {
-    en: "Hello, world!",
-    es: "¡Hola, mundo!"
-}
-```
-
-Output:
-
-```dart
 import 'package:angular2/core.dart' show Pipe, PipeTransform;
 
 @Pipe(name: 'polyglot')
@@ -25,14 +8,12 @@ class PolyglotPipe implements PipeTransform {
         return 'en';
       }
       if (locale == 'en') {
-        return 'Hello, world!';
+        return 'Hello!';
       }
       if (locale == 'es') {
-        return '¡Hola, mundo!';
+        return 'Hola!';
       }
     }
     return 'Unrecognized key: "$key"';
   }
 }
-
-```

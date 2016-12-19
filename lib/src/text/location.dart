@@ -1,7 +1,8 @@
 class Location {
+  final String filename;
   final int line, index;
 
-  Location(this.line, this.index);
+  Location(this.filename, this.line, this.index);
 
   @override
   bool operator ==(other) {
@@ -9,5 +10,5 @@ class Location {
   }
 
   @override
-  String toString() => '$line:$index';
+  String toString() => '$filename:$line:$index';
 }

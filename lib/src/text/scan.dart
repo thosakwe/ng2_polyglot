@@ -3,12 +3,13 @@ import 'location.dart';
 import 'token.dart';
 import 'token_type.dart';
 
+final RegExp _COMMENT = new RegExp(r'//([^\n])*');
 final RegExp _WS = new RegExp(r'\r|\t| ');
-final RegExp _STRING = new RegExp(r'"((\\")|([^"\n]))*"');
+final RegExp _DBL = new RegExp(r'"((\\")|([^"\n]))*"');
+final RegExp _SNGL = new RegExp(r"'((\\')|([^'\n]))*'");
 final RegExp _ID = new RegExp(r'[A-Za-z_][A-Za-z0-9_]*');
 
 const Map<String, TokenType> _symbols = const {
-  '@': TokenType.ARROBA,
   ':': TokenType.COLON,
   ',': TokenType.COMMA,
   '{': TokenType.CURLY_L,
@@ -19,18 +20,20 @@ const Map<String, TokenType> _symbols = const {
 };
 
 const Map<Pattern, TokenType> _keywords = const {
-  'languages': TokenType.LANGUAGES
+  '@import': TokenType.IMPORT,
+  '@languages': TokenType.LANGUAGES
 };
 
 final Map<Pattern, TokenType> _lexRules = {
   _ID: TokenType.ID,
-  _STRING: TokenType.STRING
+  _DBL: TokenType.STRING,
+  _SNGL: TokenType.STRING
 };
 
-List<Token> scan(String text) {
+List<Token> scan(String text, {String filename}) {
   final List<Token> tokens = [];
   final scanner = new StringScanner(text);
-  int line = 1, index = -1;
+  int line = 1, index = 0;
 
   while (!scanner.isDone) {
     final List<Token> potential = [];
@@ -38,10 +41,12 @@ List<Token> scan(String text) {
 
     if (scanner.scan('\n') || scanner.scan('\r\n')) {
       line++;
-      index = -1;
+      index = 0;
       continue;
     } else if (scanner.scan(_WS)) {
       index += scanner.lastMatch[0].length;
+      continue;
+    } else if (scanner.scan(_COMMENT)) {
       continue;
     }
 
@@ -70,7 +75,7 @@ List<Token> scan(String text) {
     if (potential.isNotEmpty) {
       potential.sort((a, b) => a.text.compareTo(b.text));
       final token = potential.first;
-      token.location = new Location(line, index);
+      token.location = new Location(filename, line, index);
       line += '\n'.allMatches(token.text).length;
       index += token.text.length;
       scanner.position += token.text.length;

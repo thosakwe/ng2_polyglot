@@ -31,7 +31,7 @@ class DictionaryContext extends Node {
 
   @override
   String toSource() {
-    final buf = new StringBuffer('@languages [');
+    final buf = new StringBuffer('{');
 
     for (int i = 0; i < keyValuePairs.length; i++) {
       if (i > 0) {
@@ -43,7 +43,7 @@ class DictionaryContext extends Node {
       buf.write(keyValuePairs[i].value.STRING.text);
     }
 
-    buf.write(']');
+    buf.write('}');
     return buf.toString();
   }
 }

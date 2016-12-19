@@ -1,0 +1,10 @@
+@import "locales/en.i18n";
+@import "locales/es.i18n";
+
+// These are required in every word declaration.
+// Others are optional.
+@languages [en, es];
+
+"hello" {
+    eo: "Saluton!"
+}

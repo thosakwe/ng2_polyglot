@@ -4,7 +4,7 @@ import 'token.dart';
 import 'token_type.dart';
 
 class Parser extends BaseParser {
-  Parser(List<Token> tokens) : super(tokens);
+  Parser(String filename, List<Token> tokens) : super(filename, tokens);
 
   CompilationUnitContext compilationUnit() {
     final CompilationUnitContext ctx = new CompilationUnitContext();
@@ -20,7 +20,11 @@ class Parser extends BaseParser {
   }
 
   TopLevelDeclaration topLevelDeclaration() {
-    LanguagesContext lang = languages();
+    ImportDeclarationContext importDecl = importDeclaration();
+
+    if (importDecl != null) return importDecl;
+
+    LanguagesDeclarationContext lang = languages();
 
     if (lang != null) return lang;
 
@@ -31,7 +35,23 @@ class Parser extends BaseParser {
     return null;
   }
 
-  LanguagesContext languages() {
+  ImportDeclarationContext importDeclaration() {
+    if (next(TokenType.IMPORT)) {
+      var IMPORT = current;
+
+      if (!next(TokenType.STRING)) {
+        throw expectedType(TokenType.STRING);
+      } else {
+        var STRING = current;
+        next(TokenType.SEMI);
+        return new ImportDeclarationContext(IMPORT, new StringContext(STRING));
+      }
+    }
+
+    return null;
+  }
+
+  LanguagesDeclarationContext languages() {
     if (next(TokenType.LANGUAGES)) {
       final LANGUAGES = current;
 
@@ -51,7 +71,8 @@ class Parser extends BaseParser {
           // Optional semi-colon
           next(TokenType.SEMI);
           final SQUARE_R = current;
-          final ctx = new LanguagesContext(LANGUAGES, SQUARE_L, SQUARE_R);
+          final ctx =
+              new LanguagesDeclarationContext(LANGUAGES, SQUARE_L, SQUARE_R);
           return ctx..languages.addAll(ids);
         } else {
           throw expectedType(TokenType.SQUARE_R);

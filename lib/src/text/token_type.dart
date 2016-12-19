@@ -10,6 +10,7 @@ enum TokenType {
   SQUARE_R,
 
   // Keywords
+  IMPORT,
   LANGUAGES,
 
   // Data

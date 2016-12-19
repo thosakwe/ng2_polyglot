@@ -37,7 +37,7 @@ class PolyglotCompiler {
     List<String> languages = [];
 
     for (var decl in ctx.topLevelDeclarations) {
-      if (decl is LanguagesContext) {
+      if (decl is LanguagesDeclarationContext) {
         languages.addAll(decl.languages.map((id) => id.name));
       }
     }
@@ -49,6 +49,7 @@ class PolyglotCompiler {
       }
     }
 
+    
     builder.addStatement(literal(r'Unrecognized key: "$key"').asReturn());
 
     return builder;
@@ -60,7 +61,16 @@ class PolyglotCompiler {
         ifThen(reference('key').equals(literal(ctx.word.stringValue)));
 
     StatementBuilder addChecker(ExpressionBuilder matcher, String value) {
-      var builder = ifThen(reference('locale').equals(matcher));
+      var locale = reference('locale');
+
+      if (matcher == null) {
+        var builder =
+            ifThen(locale.equals(literal(null)).or(locale.property('isEmpty')));
+        builder.addStatement(literal(value).asReturn());
+        return builder;
+      }
+
+      var builder = ifThen(locale.equals(matcher));
       builder.addStatement(literal(value).asReturn());
       return builder;
     }
@@ -68,7 +78,7 @@ class PolyglotCompiler {
     for (int i = 0; i < languages.length; i++) {
       var language = languages[i];
 
-      if (i == 0) builder.addStatement(addChecker(literal(null), language));
+      if (i == 0) builder.addStatement(addChecker(null, language));
 
       builder.addStatement(addChecker(literal(language), dict[language]));
     }

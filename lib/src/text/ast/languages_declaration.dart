@@ -2,11 +2,11 @@ import '../token.dart';
 import 'identifier.dart';
 import 'top_level_declaration.dart';
 
-class LanguagesContext extends TopLevelDeclaration {
+class LanguagesDeclarationContext extends TopLevelDeclaration {
   final Token LANGUAGES, SQUARE_L, SQUARE_R;
   final List<IdentifierContext> languages = [];
 
-  LanguagesContext(this.LANGUAGES, this.SQUARE_L, this.SQUARE_R) {
+  LanguagesDeclarationContext(this.LANGUAGES, this.SQUARE_L, this.SQUARE_R) {
     tokens.addAll([LANGUAGES, SQUARE_L, SQUARE_R]);
   }
 
@@ -22,7 +22,7 @@ class LanguagesContext extends TopLevelDeclaration {
       buf.write(languages[i].ID.text);
     }
 
-    buf.write(']');
+    buf.write('];');
     return buf.toString();
   }
 }

@@ -5,10 +5,13 @@ import 'token_type.dart';
 
 class BaseParser {
   int _index = -1;
-  Location location = new Location(1, 0);
+  final String filename;
+  Location location;
   final List<Token> tokens;
 
-  BaseParser(this.tokens);
+  BaseParser(this.filename, this.tokens) {
+    location = new Location(filename, 1, 0);
+  }
 
   bool eof() => _index >= tokens.length;
 
